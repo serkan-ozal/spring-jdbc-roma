@@ -231,8 +231,7 @@ public class GeneratedRowMapper<T> extends AbstractRowMapper<T> {
 						"}";
 					
 					if (logger.isDebugEnabled()) {
-						logger.debug("GeneratedRowMapper: " + generatedClassName);
-						logger.debug(methodCode);
+						logger.debug("GeneratedRowMapper: " + generatedClassName + "\n" + methodCode);
 					}
 					
 					mapRowMethod.setBody(methodCode);

@@ -35,8 +35,9 @@ public abstract class AbstractRowMapperFieldGenerator<T> implements RowMapperFie
 	protected String columnName;
 	protected GeneratedRowMapper<T> rowMapper;
 	
-	public AbstractRowMapperFieldGenerator(Field field) {
+	public AbstractRowMapperFieldGenerator(Field field, ConfigManager configManager) {
 		this.field = field;
+		this.configManager = configManager;
 		this.fieldCls = field.getType();
 		RowMapperFieldConfig rmfc = configManager.getRowMapperFieldConfig(field);
 		if (rmfc != null) {

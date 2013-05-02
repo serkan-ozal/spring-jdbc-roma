@@ -18,10 +18,12 @@ package org.springframework.jdbc.roma.generator;
 
 import java.lang.reflect.Field;
 
+import org.springframework.jdbc.roma.config.manager.ConfigManager;
+
 public class IntegerFieldRowMapperGenerator<T> extends AbstractRowMapperFieldGenerator<T> {
 
-	public IntegerFieldRowMapperGenerator(Field field) {
-		super(field);
+	public IntegerFieldRowMapperGenerator(Field field, ConfigManager configManager) {
+		super(field, configManager);
 	}
 	
 	@Override

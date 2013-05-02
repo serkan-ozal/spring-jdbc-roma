@@ -79,46 +79,46 @@ public class DefaultRowMapperGeneratorFactory<T> implements RowMapperGeneratorFa
 		RowMapperBlobFieldConfig rmbfc = configManager.getRowMapperBlobFieldConfig(f);
 		
 		if (rmbfc != null) {
-			rmfg = new BlobFieldRowMapperGenerator<T>(f);
+			rmfg = new BlobFieldRowMapperGenerator<T>(f, configManager);
 		}
 		else if (rmofc != null) {
-			rmfg = new ObjectFieldRowMapperGenerator<T>(f);
+			rmfg = new ObjectFieldRowMapperGenerator<T>(f, configManager);
 		}
 		else if (cls.equals(boolean.class) || cls.equals(Boolean.class)) {
-			rmfg = new BooleanFieldRowMapperGenerator<T>(f);
+			rmfg = new BooleanFieldRowMapperGenerator<T>(f, configManager);
 		}	
 		else if (cls.equals(byte.class) || cls.equals(Byte.class)) {
-			rmfg = new ByteFieldRowMapperGenerator<T>(f);
+			rmfg = new ByteFieldRowMapperGenerator<T>(f, configManager);
 		}	
 		else if (cls.equals(char.class) || cls.equals(Character.class)) {
-			rmfg = new CharacterFieldRowMapperGenerator<T>(f);
+			rmfg = new CharacterFieldRowMapperGenerator<T>(f, configManager);
 		}	
 		else if (cls.equals(short.class) || cls.equals(Short.class)) {
-			rmfg = new ShortFieldRowMapperGenerator<T>(f);
+			rmfg = new ShortFieldRowMapperGenerator<T>(f, configManager);
 		}	
 		else if (cls.equals(int.class) || cls.equals(Integer.class)) {
-			rmfg = new IntegerFieldRowMapperGenerator<T>(f);
+			rmfg = new IntegerFieldRowMapperGenerator<T>(f, configManager);
 		}	
 		else if (cls.equals(float.class) || cls.equals(Float.class)) {
-			rmfg = new FloatFieldRowMapperGenerator<T>(f);
+			rmfg = new FloatFieldRowMapperGenerator<T>(f, configManager);
 		}	
 		else if (cls.equals(long.class) || cls.equals(Long.class)) {
-			rmfg = new LongFieldRowMapperGenerator<T>(f);
+			rmfg = new LongFieldRowMapperGenerator<T>(f, configManager);
 		}	
 		else if (cls.equals(double.class) || cls.equals(Double.class)) {
-			rmfg = new DoubleFieldRowMapperGenerator<T>(f);
+			rmfg = new DoubleFieldRowMapperGenerator<T>(f, configManager);
 		}
 		else if (cls.equals(String.class) || cls.equals(String.class)) {
-			rmfg = new StringFieldRowMapperGenerator<T>(f);
+			rmfg = new StringFieldRowMapperGenerator<T>(f, configManager);
 		}
 		else if (cls.equals(Date.class)) {
-			rmfg = new DateFieldRowMapperGenerator<T>(f);
+			rmfg = new DateFieldRowMapperGenerator<T>(f, configManager);
 		}
 		else if (cls.isEnum()) {
-			rmfg = new EnumFieldRowMapperGenerator<T>(f);
+			rmfg = new EnumFieldRowMapperGenerator<T>(f, configManager);
 		}
 		else {
-			rmfg = new ObjectFieldRowMapperGenerator<T>(f);
+			rmfg = new ObjectFieldRowMapperGenerator<T>(f, configManager);
 		}
 		
 		return rmfg;

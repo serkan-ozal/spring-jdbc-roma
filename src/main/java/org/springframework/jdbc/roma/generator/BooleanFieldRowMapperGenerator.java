@@ -18,10 +18,12 @@ package org.springframework.jdbc.roma.generator;
 
 import java.lang.reflect.Field;
 
+import org.springframework.jdbc.roma.config.manager.ConfigManager;
+
 public class BooleanFieldRowMapperGenerator<T> extends AbstractRowMapperFieldGenerator<T> {
 
-	public BooleanFieldRowMapperGenerator(Field field) {
-		super(field);
+	public BooleanFieldRowMapperGenerator(Field field, ConfigManager configManager) {
+		super(field, configManager);
 	}
 
 	@Override

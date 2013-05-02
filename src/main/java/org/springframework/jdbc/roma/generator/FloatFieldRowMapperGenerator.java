@@ -18,10 +18,12 @@ package org.springframework.jdbc.roma.generator;
 
 import java.lang.reflect.Field;
 
+import org.springframework.jdbc.roma.config.manager.ConfigManager;
+
 public class FloatFieldRowMapperGenerator<T> extends AbstractRowMapperFieldGenerator<T> {
 
-	public FloatFieldRowMapperGenerator(Field field) {
-		super(field);
+	public FloatFieldRowMapperGenerator(Field field, ConfigManager configManager) {
+		super(field, configManager);
 	}
 	
 	@Override

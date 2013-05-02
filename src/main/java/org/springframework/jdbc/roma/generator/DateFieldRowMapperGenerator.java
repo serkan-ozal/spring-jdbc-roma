@@ -19,12 +19,13 @@ package org.springframework.jdbc.roma.generator;
 import java.lang.reflect.Field;
 import java.util.Date;
 
+import org.springframework.jdbc.roma.config.manager.ConfigManager;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperTimestampFieldConfig;
 
 public class DateFieldRowMapperGenerator<T> extends AbstractRowMapperFieldGenerator<T> {
 
-	public DateFieldRowMapperGenerator(Field field) {
-		super(field);
+	public DateFieldRowMapperGenerator(Field field, ConfigManager configManager) {
+		super(field, configManager);
 	}
 	
 	@Override

@@ -20,6 +20,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.jdbc.roma.config.manager.ConfigManager;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperEnumFieldConfig;
 
 public class EnumFieldRowMapperGenerator<T> extends AbstractRowMapperFieldGenerator<T> {
@@ -29,8 +30,8 @@ public class EnumFieldRowMapperGenerator<T> extends AbstractRowMapperFieldGenera
 	private String[] constantsAndMapsArray;
 	private Map<String, String> constantsAndMaps = new HashMap<String, String>();
 	
-	public EnumFieldRowMapperGenerator(Field field) {
-		super(field);
+	public EnumFieldRowMapperGenerator(Field field, ConfigManager configManager) {
+		super(field, configManager);
 		init();
 	}
 	

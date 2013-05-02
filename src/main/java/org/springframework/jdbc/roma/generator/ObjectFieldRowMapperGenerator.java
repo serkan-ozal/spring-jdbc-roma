@@ -25,6 +25,7 @@ import java.util.regex.Pattern;
 import net.sf.cglib.proxy.LazyLoader;
 
 import org.springframework.jdbc.roma.RowMapperObjectFieldDataProvider;
+import org.springframework.jdbc.roma.config.manager.ConfigManager;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperObjectFieldConfig;
 import org.springframework.jdbc.roma.proxy.ProxyHelper;
 import org.springframework.jdbc.roma.proxy.ProxyListLoader;
@@ -40,13 +41,14 @@ public class ObjectFieldRowMapperGenerator<T> extends AbstractRowMapperFieldGene
 	@SuppressWarnings("rawtypes")
 	private RowMapperObjectFieldDataProvider dataProvider;
 	
-	public ObjectFieldRowMapperGenerator(Field field) {
-		super(field);
+	public ObjectFieldRowMapperGenerator(Field field, ConfigManager configManager) {
+		super(field, configManager);
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public ObjectFieldRowMapperGenerator(Field field, RowMapperObjectFieldDataProvider dataProvider) {
-		super(field);
+	public ObjectFieldRowMapperGenerator(Field field, RowMapperObjectFieldDataProvider dataProvider, 
+			ConfigManager configManager) {
+		super(field, configManager);
 		this.dataProvider = dataProvider;
 	}
 	
