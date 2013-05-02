@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 
-package org.springframework.jdbc.roma.config.provider;
+package org.springframework.jdbc.roma.config.manager;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
+import org.springframework.jdbc.roma.config.provider.ConfigProvider;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperBlobFieldConfig;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperClassConfig;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperClobFieldConfig;
@@ -24,9 +28,12 @@ import org.springframework.jdbc.roma.domain.model.config.RowMapperFieldConfig;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperObjectFieldConfig;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperTimestampFieldConfig;
 
-public interface ConfigProvider {
+public interface ConfigManager {
 
-	public boolean isAvailable();
+	public void addConfigProvider(ConfigProvider configProvider);
+	public void removeConfigProvider(ConfigProvider configProvider);
+	public List<ConfigProvider> getAllConfigProviders();
+	
 	public RowMapperFieldConfig getRowMapperFieldConfig(Class<?> clazz, String fieldName);
 	public RowMapperObjectFieldConfig getRowMapperObjectFieldConfig(Class<?> clazz, String fieldName);
 	public RowMapperEnumFieldConfig getRowMapperEnumFieldConfig(Class<?> clazz, String fieldName);
@@ -34,5 +41,12 @@ public interface ConfigProvider {
 	public RowMapperBlobFieldConfig getRowMapperBlobFieldConfig(Class<?> clazz, String fieldName);
 	public RowMapperTimestampFieldConfig getRowMapperTimestampFieldConfig(Class<?> clazz, String fieldName);
 	public RowMapperClassConfig getRowMapperClassConfig(Class<?> clazz);
+	
+	public RowMapperFieldConfig getRowMapperFieldConfig(Field field);
+	public RowMapperObjectFieldConfig getRowMapperObjectFieldConfig(Field field);
+	public RowMapperEnumFieldConfig getRowMapperEnumFieldConfig(Field field);
+	public RowMapperClobFieldConfig getRowMapperClobFieldConfig(Field field);
+	public RowMapperBlobFieldConfig getRowMapperBlobFieldConfig(Field field);
+	public RowMapperTimestampFieldConfig getRowMapperTimestampFieldConfig(Field field);
 	
 }

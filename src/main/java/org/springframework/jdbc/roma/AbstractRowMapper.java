@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-
 package org.springframework.jdbc.roma;
 
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.roma.config.manager.ConfigManager;
+import org.springframework.jdbc.roma.config.manager.ConfigManagerFactory;
 
 public abstract class AbstractRowMapper<T> implements RowMapper<T> {
 
+	protected ConfigManager configManager = ConfigManagerFactory.getConfigManager();
 	protected Class<T> cls;
 	protected T obj;
-	protected JdbcTemplate jdbcTemplate;
 	
 	public AbstractRowMapper(Class<T> cls) {
 		this.cls = cls;
 	}
 	
-	public AbstractRowMapper(Class<T> cls, JdbcTemplate jdbcTemplate) {
+	public AbstractRowMapper(Class<T> cls, ConfigManager configManager) {
 		this.cls = cls;
-		this.jdbcTemplate = jdbcTemplate;
+		this.configManager = configManager;
 	}
 	
-	public Class<T> getCls() {
+	public Class<T> getClazz() {
 		return cls;
 	}
 	
@@ -43,8 +43,12 @@ public abstract class AbstractRowMapper<T> implements RowMapper<T> {
 		return obj;
 	}
 	
-	public JdbcTemplate getJdbcTemplate() {
-		return jdbcTemplate;
+	public ConfigManager getConfigManager() {
+		return configManager;
 	}
 	
+	public void setConfigManager(ConfigManager configManager) {
+		this.configManager = configManager;
+	}
+
 }

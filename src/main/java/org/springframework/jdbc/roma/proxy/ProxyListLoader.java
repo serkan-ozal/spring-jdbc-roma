@@ -16,7 +16,17 @@
 
 package org.springframework.jdbc.roma.proxy;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.List;
+
+import org.springframework.jdbc.roma.generator.RowMapperFieldGenerator;
+import org.springframework.jdbc.roma.util.RowMapperUtil;
+
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.CtField;
+import javassist.CtMethod;
 
 import net.sf.cglib.proxy.LazyLoader;
 
@@ -27,6 +37,82 @@ public abstract class ProxyListLoader<T> implements LazyLoader {
 	@Override
 	public Object loadObject() throws Exception {
 		return load();
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public static ProxyListLoader createProxyListLoader(String loadingCode, String classPath, Object[] parameters) {
+		try {
+			ClassPool cp = ClassPool.getDefault();
+			CtClass generatedCls = cp.makeClass("ProxyListLoader" + RowMapperUtil.generateRandomClassPostFix());
+			generatedCls.defrost();
+			generatedCls.setSuperclass((cp.get(ProxyListLoader.class.getName())));
+			
+			for (int i = 0; i < parameters.length; i++) {
+				String fieldName = parameters[i++].toString();
+				Object value = parameters[i];
+				if (value == null) {
+					continue;
+				}
+				CtField ctf = new CtField(cp.get(value.getClass().getName()), fieldName, generatedCls);
+				generatedCls.addField(ctf);
+				String setterName = "set" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
+				CtMethod ctfSetter = 
+							new CtMethod(
+									CtClass.voidType, 
+									setterName,
+									new CtClass[] {cp.get(value.getClass().getName())},
+									generatedCls);
+				ctfSetter.setModifiers(Modifier.PUBLIC);
+				String setterBody = 
+					"{" + "\n" +
+						"\t" + "this." + fieldName + " = " + "$1;" + "\n" +		
+					"}";
+				ctfSetter.setBody(setterBody);
+				generatedCls.addMethod(ctfSetter);
+			}
+
+			String variablesCode = "";
+			int separatorIndex = loadingCode.indexOf(RowMapperFieldGenerator.VARIABLES_AND_CODE_SEPARATOR);
+			if (separatorIndex > 0) {
+				variablesCode = loadingCode.substring(0, separatorIndex);
+				loadingCode = loadingCode.substring(separatorIndex + 
+													RowMapperFieldGenerator.VARIABLES_AND_CODE_SEPARATOR.length());
+			}
+			CtMethod loadMethod = 
+					new CtMethod(
+		 					cp.get(List.class.getName()), 
+							"load",
+							null,
+							generatedCls);	
+			loadMethod.setModifiers(Modifier.PUBLIC);
+			String loadMethodBody = 
+				"{" + "\n" +
+					"\t" + variablesCode +
+					"\t" + "return " + loadingCode + ";" + 
+				"}";
+			loadMethod.setBody(loadMethodBody);
+			generatedCls.addMethod(loadMethod);
+			
+			Class<?> lazyListLoaderClass = generatedCls.toClass();
+			ProxyListLoader pll = (ProxyListLoader)lazyListLoaderClass.newInstance();
+			
+			for (int i = 0; i < parameters.length; i++) {
+				String fieldName = parameters[i++].toString();
+				Object value = parameters[i];
+				if (value == null) {
+					continue;
+				}
+				String setterName = "set" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
+				Method setterMethod = pll.getClass().getDeclaredMethod(setterName, value.getClass());
+				setterMethod.invoke(pll, value);
+			}
+			
+			return pll;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 }

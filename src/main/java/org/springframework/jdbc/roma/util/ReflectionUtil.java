@@ -29,6 +29,27 @@ public class ReflectionUtil {
 		
 	}
 	
+	public static Field getField(Class<?> cls, String fieldName) {
+		while (cls != null && cls.equals(Object.class) == false) {
+			Field field = null;
+			try {
+				field = cls.getDeclaredField(fieldName);
+			} 
+			catch (SecurityException e) {
+				e.printStackTrace();
+			} 
+			catch (NoSuchFieldException e) {
+				e.printStackTrace();
+			}
+			if (field != null) {
+				field.setAccessible(true);
+				return field;
+			}
+			cls = cls.getSuperclass();
+		}
+		return null;
+	}
+	
 	public static List<Field> getAllFields(Class<?> cls) {
 		List<Field> fields = new ArrayList<Field>();
 		createFields(cls, fields, null);
