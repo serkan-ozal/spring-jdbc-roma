@@ -21,15 +21,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.FIELD})
+@Target({ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RowMapperObjectField {
+public @interface RowMapperImplementationProvider {
 	
-	public RowMapperSpringProvider provideViaSpringProvider() default @RowMapperSpringProvider;
-	public RowMapperImplementationProvider provideViaImplementationProvider() default @RowMapperImplementationProvider;
-	public RowMapperCustomProvider provideViaCustomProvider() default @RowMapperCustomProvider;
-	
-	public Class<?> fieldType() default Object.class;
-	public boolean lazy() default false;
+	public String provideCode() default "";
+	public Class<?>[] usedClasses() default {};
 	
 }

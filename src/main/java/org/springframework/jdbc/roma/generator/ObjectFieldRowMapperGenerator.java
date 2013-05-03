@@ -26,7 +26,10 @@ import net.sf.cglib.proxy.LazyLoader;
 
 import org.springframework.jdbc.roma.RowMapperObjectFieldDataProvider;
 import org.springframework.jdbc.roma.config.manager.ConfigManager;
+import org.springframework.jdbc.roma.domain.model.config.RowMapperCustomProviderConfig;
+import org.springframework.jdbc.roma.domain.model.config.RowMapperImplementationProviderConfig;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperObjectFieldConfig;
+import org.springframework.jdbc.roma.domain.model.config.RowMapperSpringProviderConfig;
 import org.springframework.jdbc.roma.proxy.ProxyHelper;
 import org.springframework.jdbc.roma.proxy.ProxyListLoader;
 import org.springframework.jdbc.roma.util.ReflectionUtil;
@@ -72,25 +75,28 @@ public class ObjectFieldRowMapperGenerator<T> extends AbstractRowMapperFieldGene
 		
 		String setterMethodName = getSetterMethodName(f);
 		
-		Class<? extends RowMapperObjectFieldDataProvider> rmdpCls = rmofc.getProvideViaDataProvider();
+		RowMapperCustomProviderConfig rmcpc = rmofc.getRowMapperCustomProviderConfig();
+		Class<? extends RowMapperObjectFieldDataProvider> rmdpCls = rmcpc != null ? rmcpc.getDataProviderClass() : null;
 		if (rmdpCls != null && rmdpCls.equals(RowMapperObjectFieldDataProvider.class) == false) {
 			return 
 				wrapWithExceptionHandling(
 					getValueFromDataProvider(f, rmofc, rmdpCls, setterMethodName));
 		}
 		else {
-			String springCode = rmofc.getProvideViaSpring();
+			RowMapperSpringProviderConfig rmspc = rmofc.getRowMapperSpringProviderConfig();
+			String springCode = rmspc != null ? rmspc.getProvideCode() : null;
 			if (springCode != null && springCode.length() > 0) {
 				return 
 					wrapWithExceptionHandling(
 						getValueFromSpringCode(f, rmofc, springCode, setterMethodName));
 			}
 			else {
-				String provideImplCode = rmofc.getProvideViaImplementationCode();
-				if (provideImplCode != null && provideImplCode.length() > 0) {
+				RowMapperImplementationProviderConfig rmipc = rmofc.getRowMapperImplementationProviderConfig();
+				String implCode = rmipc != null ? rmipc.getProvideCode() : null;
+				if (implCode != null && implCode.length() > 0) {
 					return 
 						wrapWithExceptionHandling(
-							getValueFromImplementationCode(f, rmofc, provideImplCode, setterMethodName));
+							getValueFromImplementationCode(f, rmofc, implCode, setterMethodName));
 				}
 				return "";
 			}
@@ -136,10 +142,10 @@ public class ObjectFieldRowMapperGenerator<T> extends AbstractRowMapperFieldGene
 			String provideImplCode, String setterMethodName) {
 		StringBuffer variables = new StringBuffer();
 		provideImplCode = processParameters(provideImplCode, variables);
-		
-		Class<?>[] additionalClasses = rmofc.getAdditionalClasses();
-		if (additionalClasses != null) {
-			for (Class<?> cls : additionalClasses) {
+		RowMapperImplementationProviderConfig rmipc = rmofc.getRowMapperImplementationProviderConfig();
+		Class<?>[] usedClasses = rmipc.getUsedClasses();
+		if (usedClasses != null) {
+			for (Class<?> cls : usedClasses) {
 				rowMapper.addAdditionalClass(cls);
 			}	
 		}

@@ -18,18 +18,18 @@ package org.springframework.jdbc.roma.domain.builder.config;
 
 import java.lang.reflect.Field;
 
-import org.springframework.jdbc.roma.RowMapperObjectFieldDataProvider;
 import org.springframework.jdbc.roma.domain.builder.Builder;
+import org.springframework.jdbc.roma.domain.model.config.RowMapperCustomProviderConfig;
+import org.springframework.jdbc.roma.domain.model.config.RowMapperImplementationProviderConfig;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperObjectFieldConfig;
+import org.springframework.jdbc.roma.domain.model.config.RowMapperSpringProviderConfig;
 
 public class RowMapperObjectFieldConfigBuilder implements Builder<RowMapperObjectFieldConfig> {
 
 	private Field field;
-	private String provideViaSpring;
-	private String provideViaImplementationCode;
-	@SuppressWarnings("rawtypes")
-	private Class<? extends RowMapperObjectFieldDataProvider> provideViaDataProvider;
-	private Class<?>[] additionalClasses;
+	private RowMapperSpringProviderConfig rowMapperSpringProviderConfig;
+	private RowMapperImplementationProviderConfig rowMapperImplementationProviderConfig;
+	private RowMapperCustomProviderConfig rowMapperCustomProviderConfig;
 	private Class<?> fieldType;
 	private boolean lazy = false;
 	
@@ -37,10 +37,9 @@ public class RowMapperObjectFieldConfigBuilder implements Builder<RowMapperObjec
 	public RowMapperObjectFieldConfig build() {
 		RowMapperObjectFieldConfig config = new RowMapperObjectFieldConfig();
 		config.setField(field);
-		config.setProvideViaSpring(provideViaSpring);
-		config.setProvideViaImplementationCode(provideViaImplementationCode);
-		config.setProvideViaDataProvider(provideViaDataProvider);
-		config.setAdditionalClasses(additionalClasses);
+		config.setRowMapperSpringProviderConfig(rowMapperSpringProviderConfig);
+		config.setRowMapperImplementationProviderConfig(rowMapperImplementationProviderConfig);
+		config.setRowMapperCustomProviderConfig(rowMapperCustomProviderConfig);
 		config.setFieldType(fieldType);
 		config.setLazy(lazy);
 		return config;
@@ -51,26 +50,21 @@ public class RowMapperObjectFieldConfigBuilder implements Builder<RowMapperObjec
 		return this;
 	}
 	
-	public RowMapperObjectFieldConfigBuilder provideViaSpring(String provideViaSpring) {
-		this.provideViaSpring = provideViaSpring;
+	public RowMapperObjectFieldConfigBuilder rowMapperSpringProviderConfig(
+			RowMapperSpringProviderConfig rowMapperSpringProviderConfig) {
+		this.rowMapperSpringProviderConfig = rowMapperSpringProviderConfig;
 		return this;
 	}
 	
-	public RowMapperObjectFieldConfigBuilder provideViaImplementationCode(String provideViaImplementationCode) {
-		this.provideViaImplementationCode = provideViaImplementationCode;
+	public RowMapperObjectFieldConfigBuilder rowMapperImplementationProviderConfig(
+			RowMapperImplementationProviderConfig rowMapperImplementationProviderConfig) {
+		this.rowMapperImplementationProviderConfig = rowMapperImplementationProviderConfig;
 		return this;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public RowMapperObjectFieldConfigBuilder provideViaDataProvider(Class<? extends RowMapperObjectFieldDataProvider> provideViaDataProvider) {
-		if (provideViaDataProvider != null && provideViaDataProvider.equals(RowMapperObjectFieldDataProvider.class) == false) {
-			this.provideViaDataProvider = provideViaDataProvider;
-		}	
-		return this;
-	}
-	
-	public RowMapperObjectFieldConfigBuilder additionalClasses(Class<?>[] additionalClasses) {
-		this.additionalClasses = additionalClasses;
+	public RowMapperObjectFieldConfigBuilder rowMapperCustomProviderConfig(
+			RowMapperCustomProviderConfig rowMapperCustomProviderConfig) {
+		this.rowMapperCustomProviderConfig = rowMapperCustomProviderConfig;	
 		return this;
 	}
 	

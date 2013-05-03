@@ -21,15 +21,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.FIELD})
+import org.springframework.jdbc.roma.RowMapperObjectFieldDataProvider;
+
+@Target({ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RowMapperObjectField {
+public @interface RowMapperCustomProvider {
 	
-	public RowMapperSpringProvider provideViaSpringProvider() default @RowMapperSpringProvider;
-	public RowMapperImplementationProvider provideViaImplementationProvider() default @RowMapperImplementationProvider;
-	public RowMapperCustomProvider provideViaCustomProvider() default @RowMapperCustomProvider;
-	
-	public Class<?> fieldType() default Object.class;
-	public boolean lazy() default false;
+	@SuppressWarnings("rawtypes")
+	public Class<? extends RowMapperObjectFieldDataProvider> dataProvider() default RowMapperObjectFieldDataProvider.class;
 	
 }

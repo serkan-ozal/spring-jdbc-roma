@@ -16,52 +16,38 @@
 
 package org.springframework.jdbc.roma.domain.model.config;
 
-import org.springframework.jdbc.roma.RowMapperObjectFieldDataProvider;
-
 public class RowMapperObjectFieldConfig extends BaseRowMapperFieldConfig {
 
-	private String provideViaSpring;
-	private String provideViaImplementationCode;
-	@SuppressWarnings("rawtypes")
-	private Class<? extends RowMapperObjectFieldDataProvider> provideViaDataProvider;
-	private Class<?>[] additionalClasses;
+	private RowMapperSpringProviderConfig rowMapperSpringProviderConfig;
+	private RowMapperImplementationProviderConfig rowMapperImplementationProviderConfig;
+	private RowMapperCustomProviderConfig rowMapperCustomProviderConfig;
 	private Class<?> fieldType;
 	private boolean lazy = false;
-	
-	public String getProvideViaSpring() {
-		return provideViaSpring;
+
+	public RowMapperSpringProviderConfig getRowMapperSpringProviderConfig() {
+		return rowMapperSpringProviderConfig;
 	}
-	
-	public void setProvideViaSpring(String provideViaSpring) {
-		this.provideViaSpring = provideViaSpring;
+
+	public void setRowMapperSpringProviderConfig(RowMapperSpringProviderConfig rowMapperSpringProviderConfig) {
+		this.rowMapperSpringProviderConfig = rowMapperSpringProviderConfig;
 	}
-	
-	public String getProvideViaImplementationCode() {
-		return provideViaImplementationCode;
+
+	public RowMapperImplementationProviderConfig getRowMapperImplementationProviderConfig() {
+		return rowMapperImplementationProviderConfig;
 	}
-	
-	public void setProvideViaImplementationCode(String provideViaImplementationCode) {
-		this.provideViaImplementationCode = provideViaImplementationCode;
+
+	public void setRowMapperImplementationProviderConfig(RowMapperImplementationProviderConfig rowMapperImplementationProviderConfig) {
+		this.rowMapperImplementationProviderConfig = rowMapperImplementationProviderConfig;
 	}
-	
-	@SuppressWarnings("rawtypes")
-	public Class<? extends RowMapperObjectFieldDataProvider> getProvideViaDataProvider() {
-		return provideViaDataProvider;
+
+	public RowMapperCustomProviderConfig getRowMapperCustomProviderConfig() {
+		return rowMapperCustomProviderConfig;
 	}
-	
-	@SuppressWarnings("rawtypes")
-	public void setProvideViaDataProvider(Class<? extends RowMapperObjectFieldDataProvider> provideViaDataProvider) {
-		this.provideViaDataProvider = provideViaDataProvider;
+
+	public void setRowMapperCustomProviderConfig(RowMapperCustomProviderConfig rowMapperCustomProviderConfig) {
+		this.rowMapperCustomProviderConfig = rowMapperCustomProviderConfig;
 	}
-	
-	public Class<?>[] getAdditionalClasses() {
-		return additionalClasses;
-	}
-	
-	public void setAdditionalClasses(Class<?>[] additionalClasses) {
-		this.additionalClasses = additionalClasses;
-	}
-	
+
 	public Class<?> getFieldType() {
 		return fieldType;
 	}

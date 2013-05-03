@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.springframework.jdbc.roma.config.provider.annotation.RowMapperField;
 import org.springframework.jdbc.roma.config.provider.annotation.RowMapperObjectField;
+import org.springframework.jdbc.roma.config.provider.annotation.RowMapperSpringProvider;
 
 public class Role {
 
@@ -28,7 +29,11 @@ public class Role {
 	private Long id;
 	@RowMapperField(columnName="name")
 	private String name;
-	@RowMapperObjectField(provideViaSpring="@{permissionDAO}.getRolePermissionList(${id})", lazy=true)
+	@RowMapperObjectField(
+			provideViaSpringProvider = 
+				@RowMapperSpringProvider(
+						provideCode="@{permissionDAO}.getRolePermissionList(${id})"),
+			lazy = true)
 	private List<Permission> permissions = new ArrayList<Permission>();
 	
 	public Long getId() {

@@ -22,9 +22,12 @@ import org.springframework.jdbc.roma.config.provider.ConfigProvider;
 import org.springframework.jdbc.roma.domain.builder.config.RowMapperBlobFieldConfigBuilder;
 import org.springframework.jdbc.roma.domain.builder.config.RowMapperClassConfigBuilder;
 import org.springframework.jdbc.roma.domain.builder.config.RowMapperClobFieldConfigBuilder;
+import org.springframework.jdbc.roma.domain.builder.config.RowMapperCustomProviderConfigBuilder;
 import org.springframework.jdbc.roma.domain.builder.config.RowMapperEnumFieldConfigBuilder;
 import org.springframework.jdbc.roma.domain.builder.config.RowMapperFieldConfigBuilder;
+import org.springframework.jdbc.roma.domain.builder.config.RowMapperImplementationProviderConfigBuilder;
 import org.springframework.jdbc.roma.domain.builder.config.RowMapperObjectFieldConfigBuilder;
+import org.springframework.jdbc.roma.domain.builder.config.RowMapperSpringProviderConfigBuilder;
 import org.springframework.jdbc.roma.domain.builder.config.RowMapperTimestampFieldConfigBuilder;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperBlobFieldConfig;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperClassConfig;
@@ -64,13 +67,35 @@ public class AnnotationBasedConfigProvider implements ConfigProvider {
 		Field field = ReflectionUtil.getField(clazz, fieldName);
 		if (field.isAnnotationPresent(RowMapperObjectField.class)) {
 			RowMapperObjectField rmof = field.getAnnotation(RowMapperObjectField.class);
+			
+			RowMapperSpringProvider rmsp = rmof.provideViaSpringProvider();
+			RowMapperImplementationProvider rmip = rmof.provideViaImplementationProvider();
+			RowMapperCustomProvider rmcp = rmof.provideViaCustomProvider();
 			return 
 				new RowMapperObjectFieldConfigBuilder().
 						field(field).
-						provideViaSpring(rmof.provideViaSpring()).
-						provideViaImplementationCode(rmof.provideViaImplementationCode()).
-						provideViaDataProvider(rmof.provideViaDataProvider()).
-						additionalClasses(rmof.additionalClasses()).
+						rowMapperSpringProviderConfig(
+								rmsp != null ? 
+										new RowMapperSpringProviderConfigBuilder().
+												field(field).
+												provideCode(rmsp.provideCode()).
+											build() : 
+										null).
+						rowMapperImplementationProviderConfig(
+								rmip != null ? 
+										new RowMapperImplementationProviderConfigBuilder().
+												field(field).
+												provideCode(rmip.provideCode()).
+												usedClasses(rmip.usedClasses()).
+											build() : 
+										null).	
+						rowMapperCustomProviderConfig(
+								rmcp != null ? 
+										new RowMapperCustomProviderConfigBuilder().
+												field(field).
+												dataProviderClass(rmcp.dataProvider()).
+											build() :	
+										null).
 						fieldType(rmof.fieldType()).
 						lazy(rmof.lazy()).
 					build();	

@@ -14,25 +14,17 @@
  * limitations under the License.
  */
 
-package org.springframework.jdbc.roma.service;
+package org.springframework.jdbc.roma.factory;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.roma.GeneratedRowMapper;
 import org.springframework.jdbc.roma.config.manager.ConfigManager;
-import org.springframework.jdbc.roma.factory.RowMapperFactoryProvider;
-import org.springframework.stereotype.Service;
 
-@Service
-@DependsOn({"springUtil"})
-public class RowMapperServiceImpl implements RowMapperService {
+public class DefaultRowMapperFactory implements RowMapperFactory {
 
-	@Autowired
-	private ConfigManager configManager;
-	
 	@Override
-	public <T> RowMapper<T> getRowMapper(Class<T> clazz) {
-		return RowMapperFactoryProvider.getRowMapperFactory().getRowMapper(clazz, configManager);
+	public <T> RowMapper<T> getRowMapper(Class<T> clazz, ConfigManager configManager) {
+		return new GeneratedRowMapper<T>(clazz, configManager);
 	}
-	
+
 }

@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.springframework.jdbc.roma.config.provider.annotation.RowMapperField;
 import org.springframework.jdbc.roma.config.provider.annotation.RowMapperObjectField;
+import org.springframework.jdbc.roma.config.provider.annotation.RowMapperSpringProvider;
 
 public class User {
 
@@ -36,7 +37,11 @@ public class User {
 	private String lastname;
 	@RowMapperField(columnName="enabled")
 	private boolean enabled = true;
-	@RowMapperObjectField(provideViaSpring="@{roleDAO}.getUserRoleList(${id})", fieldType=Role.class, lazy=true)
+	@RowMapperObjectField(
+			provideViaSpringProvider = 
+				@RowMapperSpringProvider(
+						provideCode="@{roleDAO}.getUserRoleList(${id})"),
+			lazy = true)
 	private List<Role> roles = new ArrayList<Role>();
 	
 	public Long getId() {
