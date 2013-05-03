@@ -62,7 +62,7 @@ public class EnumFieldRowMapperGenerator<T> extends AbstractRowMapperFieldGenera
 			setValueExpr = "Integer.valueOf" + "(" + setValueExpr + ")";
 		}
 		if (rmefc == null) {
-			setValueExpr = f.getType() + ".values()" + "[" + setValueExpr + "]";
+			setValueExpr = f.getType().getName() + ".values()" + "[" + setValueExpr + "]";
 			return 
 				wrapWithNullCheck(	
 					GENERATED_OBJECT_NAME + "." + setterMethodName + "(" + setValueExpr + ");",
