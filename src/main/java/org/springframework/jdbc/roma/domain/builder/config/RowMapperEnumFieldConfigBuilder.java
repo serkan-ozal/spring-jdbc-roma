@@ -21,6 +21,9 @@ import java.lang.reflect.Field;
 import org.springframework.jdbc.roma.domain.builder.Builder;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperEnumFieldConfig;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class RowMapperEnumFieldConfigBuilder implements Builder<RowMapperEnumFieldConfig> {
 
 	private Field field;

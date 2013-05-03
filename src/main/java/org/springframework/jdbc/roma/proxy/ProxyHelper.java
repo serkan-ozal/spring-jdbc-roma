@@ -21,6 +21,9 @@ import java.util.List;
 
 import net.sf.cglib.proxy.Enhancer;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class ProxyHelper {
 
 	@SuppressWarnings("unchecked")

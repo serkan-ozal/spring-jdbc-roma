@@ -18,6 +18,9 @@ package org.springframework.jdbc.roma.config.manager;
 
 import org.springframework.jdbc.roma.util.SpringUtil;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class ConfigManagerFactory {
 
 	private ConfigManagerFactory() {

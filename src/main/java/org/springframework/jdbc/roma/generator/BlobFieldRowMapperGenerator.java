@@ -20,6 +20,9 @@ import java.lang.reflect.Field;
 
 import org.springframework.jdbc.roma.config.manager.ConfigManager;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class BlobFieldRowMapperGenerator<T> extends AbstractRowMapperFieldGenerator<T> {
 
 	public BlobFieldRowMapperGenerator(Field field, ConfigManager configManager) {

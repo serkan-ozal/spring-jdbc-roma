@@ -24,6 +24,9 @@ import org.springframework.jdbc.roma.domain.model.config.RowMapperFieldConfig;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperObjectFieldConfig;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperTimestampFieldConfig;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public interface ConfigProvider {
 
 	public boolean isAvailable();

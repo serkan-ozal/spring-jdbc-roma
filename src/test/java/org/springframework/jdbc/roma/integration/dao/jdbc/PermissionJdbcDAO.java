@@ -26,6 +26,9 @@ import org.springframework.jdbc.roma.integration.dao.PermissionDAO;
 import org.springframework.jdbc.roma.integration.model.Permission;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @author Serkan ÖZAL
+ */
 @Repository(value="permissionDAO")
 public class PermissionJdbcDAO extends BaseJdbcDAO implements PermissionDAO {
 

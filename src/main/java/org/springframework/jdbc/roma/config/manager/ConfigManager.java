@@ -28,6 +28,9 @@ import org.springframework.jdbc.roma.domain.model.config.RowMapperFieldConfig;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperObjectFieldConfig;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperTimestampFieldConfig;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public interface ConfigManager {
 
 	public void addConfigProvider(ConfigProvider configProvider);

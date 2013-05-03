@@ -22,6 +22,9 @@ import org.junit.Test;
 import org.springframework.jdbc.roma.ContextAwareRomaTest;
 import org.springframework.jdbc.roma.service.RowMapperService;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class SpringUtilTest extends ContextAwareRomaTest {
 
 	@Test

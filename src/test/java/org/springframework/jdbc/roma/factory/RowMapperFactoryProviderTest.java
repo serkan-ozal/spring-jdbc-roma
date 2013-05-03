@@ -20,6 +20,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.jdbc.roma.ContextAwareRomaTest;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class RowMapperFactoryProviderTest extends ContextAwareRomaTest {
 
 	@Test

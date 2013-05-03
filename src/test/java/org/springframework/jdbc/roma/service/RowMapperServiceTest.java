@@ -22,6 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.roma.ContextAwareRomaTest;
 import org.springframework.jdbc.roma.config.provider.annotation.RowMapperField;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class RowMapperServiceTest extends ContextAwareRomaTest {
 
 	@Autowired

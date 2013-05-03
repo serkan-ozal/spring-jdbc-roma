@@ -16,6 +16,9 @@
 
 package org.springframework.jdbc.roma;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public interface RowMapperObjectFieldDataProvider<T> {
 
 	public Object provideData(T ownerObj);

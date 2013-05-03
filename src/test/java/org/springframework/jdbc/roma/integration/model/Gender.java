@@ -16,6 +16,9 @@
 
 package org.springframework.jdbc.roma.integration.model;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public enum Gender {
 
 	FEMALE,

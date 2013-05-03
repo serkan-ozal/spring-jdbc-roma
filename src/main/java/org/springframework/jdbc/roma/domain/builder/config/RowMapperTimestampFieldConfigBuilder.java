@@ -21,6 +21,9 @@ import java.lang.reflect.Field;
 import org.springframework.jdbc.roma.domain.builder.Builder;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperTimestampFieldConfig;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class RowMapperTimestampFieldConfigBuilder implements Builder<RowMapperTimestampFieldConfig> {
 
 	private Field field;

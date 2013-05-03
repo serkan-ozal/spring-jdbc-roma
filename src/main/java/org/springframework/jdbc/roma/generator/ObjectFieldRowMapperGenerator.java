@@ -35,6 +35,9 @@ import org.springframework.jdbc.roma.proxy.ProxyListLoader;
 import org.springframework.jdbc.roma.util.ReflectionUtil;
 import org.springframework.jdbc.roma.util.SpringUtil;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class ObjectFieldRowMapperGenerator<T> extends AbstractRowMapperFieldGenerator<T> {
 
 	private static final Pattern BEAN_PATTERN = Pattern.compile("@\\{([^\\{]+)\\}");

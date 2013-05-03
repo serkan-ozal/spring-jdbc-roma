@@ -18,6 +18,9 @@ package org.springframework.jdbc.roma.service;
 
 import org.springframework.jdbc.core.RowMapper;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public interface RowMapperService {
 
 	public <T> RowMapper<T> getRowMapper(Class<T> clazz);

@@ -40,6 +40,9 @@ import org.springframework.jdbc.roma.generator.RowMapperFieldGenerator;
 import org.springframework.jdbc.roma.generator.ShortFieldRowMapperGenerator;
 import org.springframework.jdbc.roma.generator.StringFieldRowMapperGenerator;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class DefaultRowMapperGeneratorFactory<T> implements RowMapperGeneratorFactory<T> {
 	
 	protected final Logger logger = LoggerFactory.getLogger(getClass());

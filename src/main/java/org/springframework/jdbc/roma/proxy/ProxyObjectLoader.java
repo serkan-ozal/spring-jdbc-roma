@@ -29,6 +29,9 @@ import javassist.CtMethod;
 
 import net.sf.cglib.proxy.LazyLoader;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public abstract class ProxyObjectLoader<T> implements LazyLoader {
 	
 	public abstract T load();

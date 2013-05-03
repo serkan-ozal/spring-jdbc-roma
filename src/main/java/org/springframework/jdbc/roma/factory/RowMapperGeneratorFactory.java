@@ -20,6 +20,9 @@ import java.lang.reflect.Field;
 
 import org.springframework.jdbc.roma.generator.RowMapperFieldGenerator;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public interface RowMapperGeneratorFactory<T> {
 
 	public RowMapperFieldGenerator<T> createRowMapperFieldGenerator(Field f);

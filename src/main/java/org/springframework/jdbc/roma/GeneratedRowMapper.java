@@ -46,9 +46,12 @@ import org.springframework.jdbc.roma.proxy.ProxyObjectLoader;
 import org.springframework.jdbc.roma.util.ReflectionUtil;
 import org.springframework.jdbc.roma.util.SpringUtil;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class GeneratedRowMapper<T> extends AbstractRowMapper<T> {
 	
-	final static protected Class<?>[] DEFAULT_CLASSES_TO_BE_ADDED = {
+	protected static final Class<?>[] DEFAULT_CLASSES_TO_BE_ADDED = {
 		RowMapper.class,
 		ResultSet.class,
 		Blob.class,

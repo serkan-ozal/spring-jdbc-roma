@@ -18,6 +18,9 @@ package org.springframework.jdbc.roma.domain.model.config;
 
 import org.springframework.jdbc.roma.generator.RowMapperFieldGenerator;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class RowMapperFieldConfig extends BaseRowMapperFieldConfig {
 
 	private String columnName;

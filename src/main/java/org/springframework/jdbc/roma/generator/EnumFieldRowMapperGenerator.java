@@ -23,6 +23,9 @@ import java.util.Map;
 import org.springframework.jdbc.roma.config.manager.ConfigManager;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperEnumFieldConfig;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class EnumFieldRowMapperGenerator<T> extends AbstractRowMapperFieldGenerator<T> {
 
 	private Object[] enumConstants;

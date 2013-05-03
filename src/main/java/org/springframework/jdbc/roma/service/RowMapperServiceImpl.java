@@ -23,6 +23,9 @@ import org.springframework.jdbc.roma.config.manager.ConfigManager;
 import org.springframework.jdbc.roma.factory.RowMapperFactoryProvider;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author Serkan ÖZAL
+ */
 @Service("rowMapperService")
 @DependsOn({"springUtil"})
 public class RowMapperServiceImpl implements RowMapperService {

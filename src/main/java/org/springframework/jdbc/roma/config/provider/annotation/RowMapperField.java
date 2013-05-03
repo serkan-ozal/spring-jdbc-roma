@@ -23,12 +23,14 @@ import java.lang.annotation.Target;
 
 import org.springframework.jdbc.roma.generator.RowMapperFieldGenerator;
 
+/**
+ * @author Serkan ÖZAL
+ */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RowMapperField {
 	
 	public String columnName();
-	
 	@SuppressWarnings("rawtypes")
 	public Class<? extends RowMapperFieldGenerator> fieldGenerator() default RowMapperFieldGenerator.class;
 	

@@ -27,6 +27,9 @@ import org.springframework.jdbc.roma.integration.dao.UserDAO;
 import org.springframework.jdbc.roma.integration.model.User;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @author Serkan ÖZAL
+ */
 @Repository(value="userDAO")
 public class UserJdbcDAO extends BaseJdbcDAO implements UserDAO {
 

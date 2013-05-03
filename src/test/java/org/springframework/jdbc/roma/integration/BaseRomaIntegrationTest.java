@@ -24,6 +24,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.roma.ContextAwareRomaTest;
 import org.springframework.test.jdbc.JdbcTestUtils;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public abstract class BaseRomaIntegrationTest extends ContextAwareRomaTest {
 
 	@Autowired

@@ -20,6 +20,9 @@ import java.util.List;
 
 import org.springframework.jdbc.roma.integration.model.Permission;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public interface PermissionDAO {
 	
 	public Permission get(Long id);

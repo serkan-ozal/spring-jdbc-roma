@@ -22,6 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.roma.service.RowMapperService;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class BaseJdbcDAO {
 	
 	protected final Logger logger = LoggerFactory.getLogger(getClass());

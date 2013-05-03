@@ -20,6 +20,9 @@ import org.springframework.jdbc.roma.domain.builder.Builder;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperClassConfig;
 import org.springframework.jdbc.roma.factory.RowMapperGeneratorFactory;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class RowMapperClassConfigBuilder implements Builder<RowMapperClassConfig> {
 
 	private Class<?> clazz;

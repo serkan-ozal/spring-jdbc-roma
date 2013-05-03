@@ -19,6 +19,9 @@ package org.springframework.jdbc.roma.factory;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.roma.config.manager.ConfigManager;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public interface RowMapperFactory {
 
 	public <T> RowMapper<T> getRowMapper(Class<T> clazz, ConfigManager configManager);

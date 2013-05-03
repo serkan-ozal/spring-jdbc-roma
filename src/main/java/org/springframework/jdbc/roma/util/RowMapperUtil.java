@@ -18,6 +18,9 @@ package org.springframework.jdbc.roma.util;
 
 import java.util.UUID;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class RowMapperUtil {
 
 	private RowMapperUtil() {

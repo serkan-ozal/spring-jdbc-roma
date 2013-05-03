@@ -23,6 +23,9 @@ import org.springframework.jdbc.roma.config.provider.annotation.RowMapperField;
 import org.springframework.jdbc.roma.config.provider.annotation.RowMapperObjectField;
 import org.springframework.jdbc.roma.config.provider.annotation.RowMapperSpringProvider;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class Role implements Comparable<Role> {
 
 	@RowMapperField(columnName="id")

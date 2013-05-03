@@ -31,6 +31,9 @@ import org.springframework.jdbc.roma.domain.model.config.RowMapperObjectFieldCon
 import org.springframework.jdbc.roma.domain.model.config.RowMapperTimestampFieldConfig;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author Serkan ÖZAL
+ */
 @Service
 public class ConfigManagerImpl extends BaseConfigManager {
 

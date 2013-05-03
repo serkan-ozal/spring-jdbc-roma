@@ -20,6 +20,9 @@ import java.util.List;
 
 import org.springframework.jdbc.roma.integration.model.Role;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public interface RoleDAO {
 
 	public Role get(Long id);

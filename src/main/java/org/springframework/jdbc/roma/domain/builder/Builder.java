@@ -16,8 +16,11 @@
 
 package org.springframework.jdbc.roma.domain.builder;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public interface Builder<T> {
 
-	T build();
+	public T build();
 	
 }

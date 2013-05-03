@@ -21,6 +21,9 @@ import java.lang.reflect.Field;
 import org.springframework.jdbc.roma.domain.builder.Builder;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperImplementationProviderConfig;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class RowMapperImplementationProviderConfigBuilder implements Builder<RowMapperImplementationProviderConfig> {
 
 	private Field field;

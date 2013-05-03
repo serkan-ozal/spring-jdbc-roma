@@ -18,6 +18,9 @@ package org.springframework.jdbc.roma.domain.model.config;
 
 import java.lang.reflect.Field;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public abstract class BaseRowMapperFieldConfig implements RowMapperConfig {
 
 	protected Field field;

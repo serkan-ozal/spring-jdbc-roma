@@ -22,6 +22,9 @@ import org.springframework.jdbc.roma.RowMapperObjectFieldDataProvider;
 import org.springframework.jdbc.roma.domain.builder.Builder;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperCustomProviderConfig;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class RowMapperCustomProviderConfigBuilder implements Builder<RowMapperCustomProviderConfig> {
 
 	private Field field;

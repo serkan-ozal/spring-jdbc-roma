@@ -23,6 +23,9 @@ import java.lang.annotation.Target;
 
 import org.springframework.jdbc.roma.factory.RowMapperGeneratorFactory;
 
+/**
+ * @author Serkan ÖZAL
+ */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RowMapperClass {

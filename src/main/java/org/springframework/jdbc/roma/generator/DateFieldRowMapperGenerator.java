@@ -22,6 +22,9 @@ import java.util.Date;
 import org.springframework.jdbc.roma.config.manager.ConfigManager;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperTimestampFieldConfig;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class DateFieldRowMapperGenerator<T> extends AbstractRowMapperFieldGenerator<T> {
 
 	public DateFieldRowMapperGenerator(Field field, ConfigManager configManager) {

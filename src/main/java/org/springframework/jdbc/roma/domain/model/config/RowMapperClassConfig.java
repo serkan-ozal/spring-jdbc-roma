@@ -18,6 +18,9 @@ package org.springframework.jdbc.roma.domain.model.config;
 
 import org.springframework.jdbc.roma.factory.RowMapperGeneratorFactory;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class RowMapperClassConfig extends BaseRowMapperClassConfig {
 
 	@SuppressWarnings("rawtypes")

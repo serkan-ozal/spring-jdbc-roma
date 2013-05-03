@@ -18,6 +18,9 @@ package org.springframework.jdbc.roma.integration.model;
 
 import org.springframework.jdbc.roma.config.provider.annotation.RowMapperField;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class Permission implements Comparable<Permission> {
 
 	@RowMapperField(columnName="id")

@@ -20,6 +20,9 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.roma.GeneratedRowMapper;
 import org.springframework.jdbc.roma.config.manager.ConfigManager;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class DefaultRowMapperFactory implements RowMapperFactory {
 
 	@Override

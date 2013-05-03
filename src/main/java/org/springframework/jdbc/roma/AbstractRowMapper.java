@@ -20,6 +20,9 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.roma.config.manager.ConfigManager;
 import org.springframework.jdbc.roma.config.manager.ConfigManagerFactory;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public abstract class AbstractRowMapper<T> implements RowMapper<T> {
 
 	protected ConfigManager configManager = ConfigManagerFactory.getConfigManager();

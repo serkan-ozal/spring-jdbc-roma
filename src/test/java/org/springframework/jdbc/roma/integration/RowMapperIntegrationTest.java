@@ -29,6 +29,9 @@ import org.springframework.jdbc.roma.integration.model.Permission;
 import org.springframework.jdbc.roma.integration.model.Role;
 import org.springframework.jdbc.roma.integration.model.User;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class RowMapperIntegrationTest extends BaseRomaIntegrationTest {
 	
 	@Autowired

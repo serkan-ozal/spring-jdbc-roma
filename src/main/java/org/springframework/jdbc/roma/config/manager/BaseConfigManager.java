@@ -23,6 +23,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.roma.config.provider.ConfigProvider;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public abstract class BaseConfigManager implements ConfigManager {
 
 	protected final Logger logger = LoggerFactory.getLogger(getClass());

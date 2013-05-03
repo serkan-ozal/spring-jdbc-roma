@@ -20,6 +20,9 @@ import java.lang.reflect.Field;
 
 import org.springframework.jdbc.roma.config.manager.ConfigManager;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class BooleanFieldRowMapperGenerator<T> extends AbstractRowMapperFieldGenerator<T> {
 
 	public BooleanFieldRowMapperGenerator(Field field, ConfigManager configManager) {

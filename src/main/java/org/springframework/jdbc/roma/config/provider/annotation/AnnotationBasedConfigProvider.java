@@ -38,6 +38,9 @@ import org.springframework.jdbc.roma.domain.model.config.RowMapperObjectFieldCon
 import org.springframework.jdbc.roma.domain.model.config.RowMapperTimestampFieldConfig;
 import org.springframework.jdbc.roma.util.ReflectionUtil;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class AnnotationBasedConfigProvider implements ConfigProvider {
 
 	@Override

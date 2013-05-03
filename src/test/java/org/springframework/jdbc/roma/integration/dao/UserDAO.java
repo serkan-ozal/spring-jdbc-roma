@@ -20,6 +20,9 @@ import java.util.List;
 
 import org.springframework.jdbc.roma.integration.model.User;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public interface UserDAO {
 	
 	public User get(Long id);

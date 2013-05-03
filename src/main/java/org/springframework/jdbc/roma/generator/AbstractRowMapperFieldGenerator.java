@@ -25,6 +25,9 @@ import org.springframework.jdbc.roma.config.manager.ConfigManager;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperFieldConfig;
 import org.springframework.jdbc.roma.util.ReflectionUtil;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public abstract class AbstractRowMapperFieldGenerator<T> implements RowMapperFieldGenerator<T> {
 
 	protected final Logger logger = LoggerFactory.getLogger(getClass());

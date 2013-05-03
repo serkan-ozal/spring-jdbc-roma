@@ -23,6 +23,9 @@ import java.lang.annotation.Target;
 
 import org.springframework.jdbc.roma.RowMapperObjectFieldDataProvider;
 
+/**
+ * @author Serkan ÖZAL
+ */
 @Target({ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RowMapperCustomProvider {

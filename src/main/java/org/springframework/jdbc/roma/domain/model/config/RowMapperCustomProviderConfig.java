@@ -18,6 +18,9 @@ package org.springframework.jdbc.roma.domain.model.config;
 
 import org.springframework.jdbc.roma.RowMapperObjectFieldDataProvider;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class RowMapperCustomProviderConfig extends BaseRowMapperFieldConfig {
 
 	@SuppressWarnings("rawtypes")

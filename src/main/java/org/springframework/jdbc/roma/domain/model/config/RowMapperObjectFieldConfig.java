@@ -16,6 +16,9 @@
 
 package org.springframework.jdbc.roma.domain.model.config;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class RowMapperObjectFieldConfig extends BaseRowMapperFieldConfig {
 
 	private RowMapperSpringProviderConfig rowMapperSpringProviderConfig;

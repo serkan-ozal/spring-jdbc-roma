@@ -20,6 +20,9 @@ import java.lang.reflect.Field;
 
 import org.springframework.jdbc.roma.config.manager.ConfigManager;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class CharacterFieldRowMapperGenerator<T> extends AbstractRowMapperFieldGenerator<T> {
 
 	public CharacterFieldRowMapperGenerator(Field field, ConfigManager configManager) {

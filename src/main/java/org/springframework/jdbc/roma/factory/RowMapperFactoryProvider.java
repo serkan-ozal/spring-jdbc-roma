@@ -16,6 +16,9 @@
 
 package org.springframework.jdbc.roma.factory;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class RowMapperFactoryProvider {
 
 	private static RowMapperFactory rowMapperFactory = new DefaultRowMapperFactory();

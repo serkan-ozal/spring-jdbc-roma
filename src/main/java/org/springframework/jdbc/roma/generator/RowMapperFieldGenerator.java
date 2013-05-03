@@ -20,6 +20,9 @@ import java.lang.reflect.Field;
 
 import org.springframework.jdbc.roma.GeneratedRowMapper;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public interface RowMapperFieldGenerator<T> {
 
 	public static final String GENERATED_OBJECT_NAME = "mappedObject";

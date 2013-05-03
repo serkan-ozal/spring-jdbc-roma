@@ -21,6 +21,9 @@ import java.lang.reflect.Field;
 import org.springframework.jdbc.roma.config.manager.ConfigManager;
 import org.springframework.jdbc.roma.domain.model.config.RowMapperClobFieldConfig;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class StringFieldRowMapperGenerator<T> extends AbstractRowMapperFieldGenerator<T> {
 
 	public StringFieldRowMapperGenerator(Field field, ConfigManager configManager) {

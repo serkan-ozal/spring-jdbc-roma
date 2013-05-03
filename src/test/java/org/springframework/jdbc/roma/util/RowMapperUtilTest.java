@@ -23,6 +23,9 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class RowMapperUtilTest {
 
 	@Test
