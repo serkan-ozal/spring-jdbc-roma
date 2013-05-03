@@ -16,44 +16,13 @@
 
 package org.springframework.jdbc.roma;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.jdbc.core.JdbcTemplate;
+
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.jdbc.JdbcTestUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:roma-test-context.xml")
-public abstract class BaseRomaTest {
-
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
-	
-	@Before
-	public void before() {
-		createDB();
-		insertDB();
-	}
-	
-	@After
-	public void after() {
-		deleteDB();
-	}
-	
-	private void createDB() {
-		JdbcTestUtils.executeSqlScript(jdbcTemplate, new ClassPathResource("/db/dbCreationScripts.sql"), true);
-	}
-	
-	private void insertDB() {
-		JdbcTestUtils.executeSqlScript(jdbcTemplate, new ClassPathResource("/db/dbInsertionScripts.sql"), true);
-	}
-	
-	private void deleteDB() {
-		JdbcTestUtils.executeSqlScript(jdbcTemplate, new ClassPathResource("/db/dbDeletionScripts.sql"), true);
-	}
+public abstract class ContextAwareRomaTest {
 	
 }

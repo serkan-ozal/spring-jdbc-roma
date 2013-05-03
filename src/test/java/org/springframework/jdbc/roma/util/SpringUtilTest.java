@@ -14,36 +14,24 @@
  * limitations under the License.
  */
 
-package org.springframework.jdbc.roma.integration.model;
+package org.springframework.jdbc.roma.util;
 
-import org.springframework.jdbc.roma.config.provider.annotation.RowMapperField;
+import junit.framework.Assert;
 
-public class Permission implements Comparable<Permission> {
+import org.junit.Test;
+import org.springframework.jdbc.roma.ContextAwareRomaTest;
+import org.springframework.jdbc.roma.service.RowMapperService;
 
-	@RowMapperField(columnName="id")
-	private Long id;
-	@RowMapperField(columnName="name")
-	private String name;
-	
-	public Long getId() {
-		return id;
+public class SpringUtilTest extends ContextAwareRomaTest {
+
+	@Test
+	public void getBean() {
+		Assert.assertNotNull(SpringUtil.getBean("rowMapperService"));
 	}
 	
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@Override
-	public int compareTo(Permission o) {
-		return (int) (id - o.id);
+	@Test
+	public void getType() {
+		Assert.assertTrue(RowMapperService.class.isAssignableFrom(SpringUtil.getBean("rowMapperService").getClass()));
 	}
 	
 }

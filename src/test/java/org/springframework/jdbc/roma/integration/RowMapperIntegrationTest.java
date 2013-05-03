@@ -16,33 +16,63 @@
 
 package org.springframework.jdbc.roma.integration;
 
+import java.util.Collections;
+import java.util.List;
+
+import junit.framework.Assert;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.roma.BaseRomaTest;
 import org.springframework.jdbc.roma.integration.dao.UserDAO;
+import org.springframework.jdbc.roma.integration.model.Gender;
 import org.springframework.jdbc.roma.integration.model.Permission;
 import org.springframework.jdbc.roma.integration.model.Role;
 import org.springframework.jdbc.roma.integration.model.User;
 
-public class RowMapperIntegrationTest extends BaseRomaTest {
+public class RowMapperIntegrationTest extends BaseRomaIntegrationTest {
 	
 	@Autowired
 	private UserDAO userDAO;
 
 	@Test
-	public void test() throws Exception {
-		StringBuffer sb = new StringBuffer();
-		for (User u : userDAO.list()) {
-			sb.append("Username: " + u.getUsername()).append("\n");
-			sb.append("Roles: ").append("\n");
-			for (Role r : u.getRoles()) {
-				sb.append("\t" + "Role Name: " + r.getName()).append("\n");
-				for (Permission p : r.getPermissions()) {
-					sb.append("\t\t" + "Permission Name: " + p.getName()).append("\n");
-				}
-			}
-		}
-		System.out.println(sb.toString());
+	public void usersAndTheirRolesAndTheirPermissionsRetrievedSuccessfully() {
+		List<User> userList = userDAO.list();
+		
+		Assert.assertNotNull(userList);
+		Assert.assertEquals(1, userList.size());
+		
+		User user = userList.get(0);
+		
+		Assert.assertEquals("user", user.getUsername());
+		Assert.assertEquals("password", user.getPassword());
+		Assert.assertEquals("Serkan", user.getFirstname());
+		Assert.assertEquals("OZAL", user.getLastname());
+		Assert.assertEquals(Gender.MALE, user.getGender());
+		
+		List<Role> roleList = user.getRoles();
+		
+		Assert.assertNotNull(roleList);
+		Assert.assertEquals(1, roleList.size());
+		
+		Role role = roleList.get(0);
+		
+		Assert.assertEquals("Admin", role.getName());
+		
+		List<Permission> permissionList = role.getPermissions();
+		Collections.sort(permissionList);
+		
+		Assert.assertNotNull(permissionList);
+		Assert.assertEquals(4, permissionList.size());
+		
+		Permission p0 = permissionList.get(0);
+		Permission p1 = permissionList.get(1);
+		Permission p2 = permissionList.get(2);
+		Permission p3 = permissionList.get(3);
+		
+		Assert.assertEquals("GET_PERM", p0.getName());
+		Assert.assertEquals("LIST_PERM", p1.getName());
+		Assert.assertEquals("UPDATE_PERM", p2.getName());
+		Assert.assertEquals("DELETE_PERM", p3.getName());
 	}
 	
 }

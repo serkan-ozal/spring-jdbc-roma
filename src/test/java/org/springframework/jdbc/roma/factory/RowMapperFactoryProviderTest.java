@@ -14,36 +14,17 @@
  * limitations under the License.
  */
 
-package org.springframework.jdbc.roma.integration.model;
+package org.springframework.jdbc.roma.factory;
 
-import org.springframework.jdbc.roma.config.provider.annotation.RowMapperField;
+import org.junit.Assert;
+import org.junit.Test;
+import org.springframework.jdbc.roma.ContextAwareRomaTest;
 
-public class Permission implements Comparable<Permission> {
+public class RowMapperFactoryProviderTest extends ContextAwareRomaTest {
 
-	@RowMapperField(columnName="id")
-	private Long id;
-	@RowMapperField(columnName="name")
-	private String name;
-	
-	public Long getId() {
-		return id;
-	}
-	
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
+	@Test
+	public void getRowMapperFactory() {
+		Assert.assertNotNull(RowMapperFactoryProvider.getRowMapperFactory());
 	}
 
-	@Override
-	public int compareTo(Permission o) {
-		return (int) (id - o.id);
-	}
-	
 }

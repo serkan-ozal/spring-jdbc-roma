@@ -5,7 +5,8 @@ CREATE TABLE USER
     password		VARCHAR(128)	NOT NULL,
     firstname		VARCHAR(128)	NOT NULL,
     lastname		VARCHAR(128)	NOT NULL,
-    enabled			INTEGER         NOT NULL
+    enabled			INTEGER         NOT NULL,
+    gender			INTEGER         NOT NULL
 );
 
 ALTER TABLE USER ADD CONSTRAINT PK_USER PRIMARY KEY

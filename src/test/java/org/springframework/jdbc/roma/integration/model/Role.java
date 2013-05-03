@@ -23,7 +23,7 @@ import org.springframework.jdbc.roma.config.provider.annotation.RowMapperField;
 import org.springframework.jdbc.roma.config.provider.annotation.RowMapperObjectField;
 import org.springframework.jdbc.roma.config.provider.annotation.RowMapperSpringProvider;
 
-public class Role {
+public class Role implements Comparable<Role> {
 
 	@RowMapperField(columnName="id")
 	private Long id;
@@ -66,6 +66,11 @@ public class Role {
 	
 	public void removePermission(Permission permission) {
 		permissions.remove(permission);
+	}
+
+	@Override
+	public int compareTo(Role o) {
+		return (int) (id - o.id);
 	}
 	
 }

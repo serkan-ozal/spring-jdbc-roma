@@ -16,34 +16,9 @@
 
 package org.springframework.jdbc.roma.integration.model;
 
-import org.springframework.jdbc.roma.config.provider.annotation.RowMapperField;
+public enum Gender {
 
-public class Permission implements Comparable<Permission> {
-
-	@RowMapperField(columnName="id")
-	private Long id;
-	@RowMapperField(columnName="name")
-	private String name;
-	
-	public Long getId() {
-		return id;
-	}
-	
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@Override
-	public int compareTo(Permission o) {
-		return (int) (id - o.id);
-	}
+	FEMALE,
+	MALE
 	
 }
