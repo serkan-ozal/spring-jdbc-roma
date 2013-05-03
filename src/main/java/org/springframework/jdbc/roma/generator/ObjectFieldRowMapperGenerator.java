@@ -183,9 +183,9 @@ public class ObjectFieldRowMapperGenerator<T> extends AbstractRowMapperFieldGene
 					setValue = variables.toString() + VARIABLES_AND_CODE_SEPARATOR + setValue;
 				}
 				return 
-					GENERATED_OBJECT_NAME + "." + setterMethodName + "(" + "\n" +
-					"\t" + "(" + f.getType().getName() + ")" + ProxyHelper.class.getName() + ".proxyList(" + fieldClsName + ".class, " + "\n" +
-					"\t" + "\t" + ProxyListLoader.class.getName() + ".createProxyListLoader(" + 
+					GENERATED_OBJECT_NAME + "." + setterMethodName + "(" + 
+						"(" + f.getType().getName() + ")" + ProxyHelper.class.getName() + ".proxyList(" + fieldClsName + ".class, " + 
+							ProxyListLoader.class.getName() + ".createProxyListLoader(" + 
 								"\"" + setValue + "\"" + ", " + 
 								"\"" + additionalClasses.toString() + "\"" + "," +
 								"new Object[] {" + 
@@ -199,11 +199,11 @@ public class ObjectFieldRowMapperGenerator<T> extends AbstractRowMapperFieldGene
 				rowMapper.addAdditionalClass(fieldCls);
 				setValue = setValue.replace("\"", "\\\"");
 				return 
-					GENERATED_OBJECT_NAME + "." + setterMethodName + "(" + "\n" +
-					"\t" + "(" + f.getType().getName() + ")" + ProxyHelper.class.getName() + ".proxyObject(" + fieldClsName + ".class, " + "\n" +
-					"\t" + "\t" + LazyLoader.class.getName() + ".createProxyLoader(" + 
-							"\"" + variables.toString() + VARIABLES_AND_CODE_SEPARATOR + setValue + "\"" + ", " + 
-							"\"" + additionalClasses.toString() + "\"" + ", " + 
+					GENERATED_OBJECT_NAME + "." + setterMethodName + "(" + 
+						"(" + f.getType().getName() + ")" + ProxyHelper.class.getName() + ".proxyObject(" + fieldClsName + ".class, " + 
+							LazyLoader.class.getName() + ".createProxyLoader(" + 
+								"\"" + variables.toString() + VARIABLES_AND_CODE_SEPARATOR + setValue + "\"" + ", " + 
+								"\"" + additionalClasses.toString() + "\"" + ", " + 
 								"new Object[] {" + 
 									"\"mappedObject\", mappedObject" + 
 								"}" + 

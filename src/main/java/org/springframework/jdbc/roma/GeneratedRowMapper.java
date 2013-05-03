@@ -222,12 +222,14 @@ public class GeneratedRowMapper<T> extends AbstractRowMapper<T> {
 					methodBody.append("}").append("\n");
 					
 					String methodCode = 
-						"try {" + "\n" +
-							methodBody.toString() + 
-						"}" +
-						"catch (Throwable t) {" + "\n" +
-							"t.printStackTrace();" + "\n" +
-							"return null;" + "\n" +
+						"try" + "\n" +
+						"{" + "\n" +
+						"\t" + methodBody.toString() + 
+						"}" + "\n" +
+						"catch (Throwable t)" + "\n" +
+						"{" + "\n" +
+						"\t" + "t.printStackTrace();" + "\n" +
+						"\t" + "return null;" + "\n" +
 						"}";
 					
 					if (logger.isDebugEnabled()) {

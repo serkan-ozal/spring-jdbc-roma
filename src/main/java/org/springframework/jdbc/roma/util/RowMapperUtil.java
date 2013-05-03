@@ -25,7 +25,7 @@ public class RowMapperUtil {
 	}
 	
 	public static String generateRandomClassPostFix() {
-		return UUID.randomUUID().toString().replace("-", "-") + "_" + System.nanoTime();
+		return UUID.randomUUID().toString().replace("-", "-");
 	}
 	
 }

@@ -79,13 +79,13 @@ public abstract class AbstractRowMapperFieldGenerator<T> implements RowMapperFie
 	
 	protected String wrapWithExceptionHandling(String generated) {
 		return 
-			"\t" + "try" + "\n" +
+			""   + "try" + "\n" +
 			"\t" + "{" + "\n" +
 			"\t" + "\t" + generated + "\n" +
 			"\t" + "}" + "\n" +
 			"\t" + "catch (Throwable t)" + "\n" + 
 			"\t" + "{" + "\n" +
-			"\t" + "t.printStackTrace();\n" +
+			"\t" + "\t" + "t.printStackTrace();\n" +
 			"\t" + "}";
 	}
 	
