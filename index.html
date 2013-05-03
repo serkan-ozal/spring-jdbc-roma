@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Spring-JDBC-ROMA : Spring JDBC extension for object mapping supported rowmapper" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Spring-JDBC-ROMA</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/serkan-ozal/spring-jdbc-roma">View on GitHub</a>
+
+          <h1 id="project_title">Spring-JDBC-ROMA</h1>
+          <h2 id="project_tagline">Spring JDBC extension for object mapping supported rowmapper</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/serkan-ozal/spring-jdbc-roma/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/serkan-ozal/spring-jdbc-roma/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h2><strong>What is Spring-JDBC-ROMA?</strong></h2>
+
+<p><strong>Spring-JDBC-ROMA</strong> is a rowmapper extension for <strong>Spring-JDBC module</strong>. There is already a rowmapper named <strong>"org.springframework.jdbc.core.BeanPropertyRowMapper"</strong> for binding resultset attributes to object. But it is reflection based and can cause performance problems as Spring developers said. However <strong>Spring-JDBC-ROMA</strong> is not reflection based and it is byte code generation (with <strong>CGLib</strong> and <strong>Javassist</strong>) based rowmapper. It generates rowmapper on the fly like implementing as manual so it has no performance overhead. It also supports object relations as lazy and eager. There are other lots of interesting features and these features can be customized with developer's extended classes. </p>
+
+<h2><strong>What features does Spring-JDBC-ROMA have?</strong></h2>
+
+<ul>
+<li><p>All primitive types, enums, dates, collections, blob, clob and complex objects are supported.  </p></li>
+<li><p>Lazy or eager field accessing is supported.   </p></li>
+<li><p>Writing your custom field based <strong>RowMapperFieldGenerator</strong> implementations is supported.   </p></li>
+<li><p>Writing your custom class (or type) based <strong>RowMapperFieldGeneratorFactory</strong> implementations is supported. </p></li>
+<li><p>Writing field access definitions as compilable Java code in annotation or configuration file (XML file, properties file, ...) is supported.    </p></li>
+</ul><h2><strong>Install</strong></h2>
+
+<p>In your <strong>pom.xml</strong>, you must add repository and dependency for Spring-JDBC-ROMA. 
+You can change <strong>spring.jdbc.roma.version</strong> to any existing <strong>spring-jdbc-roma</strong> library version.</p>
+
+<pre><code>...
+&lt;properties&gt;
+    ...
+    &lt;spring.jdbc.roma.version&gt;1.0.0-RELEASE&lt;/spring.jdbc.roma.version&gt;
+    ...
+&lt;/properties&gt;
+...
+&lt;dependencies&gt;
+    ...
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-jdbc-roma&lt;/artifactId&gt;
+        &lt;version&gt;${spring.jdbc.roma.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    ...
+&lt;/dependencies&gt;
+...
+&lt;repositories&gt;
+    ...
+    &lt;repository&gt;
+        &lt;id&gt;serkanozal-maven-repository&lt;/id&gt;
+        &lt;url&gt;https://github.com/serkan-ozal/maven-repository/raw/master/&lt;/url&gt;
+    &lt;/repository&gt;
+    ...
+&lt;/repositories&gt;
+...
+</code></pre>
+
+<p>And finally, in your <strong>Spring context xml</strong> file add following configuration to make your Spring context automatically aware of Spring-JDBC-ROMA.</p>
+
+<pre><code>...
+&lt;import resource="classpath*:roma-context.xml"/&gt;
+...
+</code></pre>
+
+<h2><strong>Spring-JDBC-ROMA with a simple example</strong></h2>
+
+<p>Here is <strong>User</strong> class:  </p>
+
+<pre><code>public class User {
+
+    @RowMapperField(columnName="id")
+    private Long id;
+    @RowMapperField(columnName="username")
+    private String username;
+    @RowMapperField(columnName="password")
+    private String password;
+    @RowMapperField(columnName="firstname")
+    private String firstname;
+    @RowMapperField(columnName="lastname")
+    private String lastname;
+    @RowMapperField(columnName="enabled")
+    private boolean enabled = true;
+    @RowMapperField(columnName="gender")
+    private Gender gender;
+    @RowMapperObjectField(
+            provideViaSpringProvider = 
+                    @RowMapperSpringProvider(
+                            provideCode="@{roleDAO}.getUserRoleList(${id})"),
+            lazy = true)
+    private List&lt;Role&gt; roles = new ArrayList&lt;Role&gt;();
+
+    ...
+} 
+</code></pre>
+
+<p>Here is <strong>Role</strong> class:    </p>
+
+<pre><code>public class Role {
+
+    @RowMapperField(columnName="id")
+    private Long id;
+    @RowMapperField(columnName="name")
+    private String name;
+    @RowMapperObjectField(
+            provideViaSpringProvider = 
+                    @RowMapperSpringProvider(
+                            provideCode="@{permissionDAO}.getRolePermissionList(${id})"),
+            lazy = true)
+    private List&lt;Permission&gt; permissions = new ArrayList&lt;Permission&gt;();
+
+    ...
+}
+</code></pre>
+
+<p>In this example, we can get related <strong>Role</strong> entites of <strong>User</strong> entity with <strong>@RowMapperObjectField</strong> annotion automatically. We use <strong>RowMapperObjectField</strong> for accessing related <strong>Role</strong> entites of <strong>User</strong> entity with <strong>id</strong> attribute of User. We have <strong>"lazy=true"</strong> configuration, since <strong>roles</strong> field are initialized while we are accessing it first time. If we don't access it, it will not be set. </p>
+
+<p>In addition, we can define <strong>User</strong> entity with compilable pure Java code as follows:</p>
+
+<pre><code>public class User {
+
+    ...
+    @RowMapperObjectField(
+            provideViaImplementationProvider = 
+                    @RowMapperImplementationProvider(
+                            provideCode="RoleDAO.getUserRoleListAsStaticMethod(${id})", 
+                            usedClasses={RoleDAO.class}), 
+            lazy=true)
+    private List&lt;Role&gt; roles = new ArrayList&lt;Role&gt;();
+    ...
+} 
+</code></pre>
+
+<p>Also, we can user our custom data provider classes these implement <strong>"RowMapperObjectFieldDataProvider"</strong> interface with its <strong>"public Object provideData(T ownerObj)"</strong> method. Here is sample usage:</p>
+
+<pre><code>public class User {
+
+    ...
+    @RowMapperObjectField(
+            provideViaCustomProvider = 
+                    @RowMapperCustomProvider(
+                            dataProvider=MyCustomDataProvider.class), 
+            lazy=true)
+    private List&lt;Role&gt; roles = new ArrayList&lt;Role&gt;();
+    ...
+} 
+</code></pre>
+
+<p>You can find all demo codes (including these samples above) at <a href="https://github.com/serkan-ozal/spring-jdbc-roma-demo">https://github.com/serkan-ozal/spring-jdbc-roma-demo</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Spring-JDBC-ROMA maintained by <a href="https://github.com/serkan-ozal">serkan-ozal</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
