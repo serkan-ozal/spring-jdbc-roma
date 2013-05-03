@@ -133,6 +133,16 @@ You can change <strong>spring.jdbc.roma.version</strong> to any existing <strong
 }
 </code></pre>
 
+<p>You can get <strong>User</strong> entity rowmapper as follows:</p>
+
+<pre><code>@Autowired
+RowMapperService rowMapperService;
+
+...
+
+RowMapper&lt;User&gt; userRowMapper = rowMapperService.getRowMapper(User.class);
+</code></pre>
+
 <p>In this example, we can get related <strong>Role</strong> entites of <strong>User</strong> entity with <strong>@RowMapperObjectField</strong> annotion automatically. We use <strong>RowMapperObjectField</strong> for accessing related <strong>Role</strong> entites of <strong>User</strong> entity with <strong>id</strong> attribute of User. We have <strong>"lazy=true"</strong> configuration, since <strong>roles</strong> field are initialized while we are accessing it first time. If we don't access it, it will not be set. </p>
 
 <p>In addition, we can define <strong>User</strong> entity with compilable pure Java code as follows:</p>
