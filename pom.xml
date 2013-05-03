@@ -2,7 +2,7 @@
   	
   	<modelVersion>4.0.0</modelVersion>
   	<groupId>org.springframework</groupId>
-  	<artifactId>jdbc-roma</artifactId>
+  	<artifactId>spring-jdbc-roma</artifactId>
   	<version>1.0.0-RELEASE</version>
     <name>Spring Framework JDBC RowMapper Extension</name>
     <url>https://github.com/serkan-ozal/spring-jdbc-roma</url>
