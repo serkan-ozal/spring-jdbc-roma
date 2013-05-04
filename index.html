@@ -89,28 +89,29 @@ You can change <strong>spring.jdbc.roma.version</strong> to any existing <strong
 
 <pre><code>public class User {
 
-    @RowMapperField(columnName="id")
+    @RowMapperField(columnName = "id")
     private Long id;
-    @RowMapperField(columnName="username")
+    @RowMapperField(columnName = "username")
     private String username;
-    @RowMapperField(columnName="password")
+    @RowMapperField(columnName = "password")
     private String password;
-    @RowMapperField(columnName="firstname")
+    @RowMapperField(columnName = "firstname")
     private String firstname;
-    @RowMapperField(columnName="lastname")
+    @RowMapperField(columnName = "lastname")
     private String lastname;
-    @RowMapperField(columnName="enabled")
+    @RowMapperField(columnName = "enabled")
     private boolean enabled = true;
-    @RowMapperField(columnName="gender")
+    @RowMapperField(columnName = "gender")
     private Gender gender;
     @RowMapperObjectField(
             provideViaSpringProvider = 
                     @RowMapperSpringProvider(
-                            provideCode="@{roleDAO}.getUserRoleList(${id})"),
+                            provideCode = "@{roleDAO}.getUserRoleList(${id})"),
             lazy = true)
     private List&lt;Role&gt; roles = new ArrayList&lt;Role&gt;();
 
     ...
+
 } 
 </code></pre>
 
@@ -118,18 +119,19 @@ You can change <strong>spring.jdbc.roma.version</strong> to any existing <strong
 
 <pre><code>public class Role {
 
-    @RowMapperField(columnName="id")
+    @RowMapperField(columnName = "id")
     private Long id;
-    @RowMapperField(columnName="name")
+    @RowMapperField(columnName = "name")
     private String name;
     @RowMapperObjectField(
             provideViaSpringProvider = 
                     @RowMapperSpringProvider(
-                            provideCode="@{permissionDAO}.getRolePermissionList(${id})"),
+                            provideCode = "@{permissionDAO}.getRolePermissionList(${id})"),
             lazy = true)
     private List&lt;Permission&gt; permissions = new ArrayList&lt;Permission&gt;();
 
     ...
+
 }
 </code></pre>
 
@@ -143,21 +145,24 @@ RowMapperService rowMapperService;
 RowMapper&lt;User&gt; userRowMapper = rowMapperService.getRowMapper(User.class);
 </code></pre>
 
-<p>In this example, we can get related <strong>Role</strong> entites of <strong>User</strong> entity with <strong>@RowMapperObjectField</strong> annotion automatically. We use <strong>RowMapperObjectField</strong> for accessing related <strong>Role</strong> entites of <strong>User</strong> entity with <strong>id</strong> attribute of User. We have <strong>"lazy=true"</strong> configuration, since <strong>roles</strong> field are initialized while we are accessing it first time. If we don't access it, it will not be set. </p>
+<p>In this example, we can get related <strong>Role</strong> entites of <strong>User</strong> entity with <strong>"@RowMapperObjectField"</strong> annotion automatically. We use <strong>"@RowMapperObjectField"</strong> annotation for accessing related <strong>Role</strong> entites of <strong>User</strong> entity with <strong>id</strong> attribute of User. We have <strong>"lazy=true"</strong> configuration, since <strong>roles</strong> field are initialized while we are accessing it first time. If we don't access it, it will not be set. </p>
 
 <p>In addition, we can define <strong>User</strong> entity with compilable pure Java code as follows:</p>
 
 <pre><code>public class User {
 
     ...
+
     @RowMapperObjectField(
             provideViaImplementationProvider = 
                     @RowMapperImplementationProvider(
-                            provideCode="RoleDAO.getUserRoleListAsStaticMethod(${id})", 
-                            usedClasses={RoleDAO.class}), 
-            lazy=true)
+                            provideCode = "RoleDAO.getUserRoleListAsStaticMethod(${id})", 
+                            usedClasses = {RoleDAO.class}), 
+            lazy = true)
     private List&lt;Role&gt; roles = new ArrayList&lt;Role&gt;();
+
     ...
+
 } 
 </code></pre>
 
@@ -166,17 +171,66 @@ RowMapper&lt;User&gt; userRowMapper = rowMapperService.getRowMapper(User.class);
 <pre><code>public class User {
 
     ...
+
     @RowMapperObjectField(
             provideViaCustomProvider = 
                     @RowMapperCustomProvider(
-                            dataProvider=MyCustomDataProvider.class), 
-            lazy=true)
+                            dataProvider = MyCustomDataProvider.class), 
+            lazy = true)
     private List&lt;Role&gt; roles = new ArrayList&lt;Role&gt;();
+
     ...
+
 } 
 </code></pre>
 
 <p>You can find all demo codes (including these samples above) at <a href="https://github.com/serkan-ozal/spring-jdbc-roma-demo">https://github.com/serkan-ozal/spring-jdbc-roma-demo</a></p>
+
+<h2><strong>Roadmap</strong></h2>
+
+<ul>
+<li>
+<p>SQL based provider will be supported for getting relations with pure SQL queries by specifying datasource as follows:</p>
+
+<pre><code>public class User {
+
+    ...
+
+    @RowMapperObjectField(
+            provideViaSqlProvider = 
+                    @RowMapperSqlProvider(
+                        sql = 
+                            "SELECT r.* FROM ROLE r WHERE r.ID IN " +
+                            "(" +
+                                "SELECT ur.ROLE_ID FROM user_role ur WHERE ur.USER_ID = ${id}" +
+                            ") ORDER BY r.name",
+                        dataSource = "MyDataSource"),
+            lazy = true)
+    private List&lt;Role&gt; roles = new ArrayList&lt;Role&gt;();
+
+    ...
+
+}
+</code></pre>
+</li>
+<li>
+<p>Field based formatters will be supported for formating field from raw value by impelenting custom formatter classes from <strong>"RowMapperFieldGeneratorFormatter"</strong> interface and overriding <strong>"public T format(T value)"</strong> method. Here is sample usage:</p>
+
+<pre><code>public class User {
+
+    ...
+
+    @RowMapperField(
+        columnName = "surname", 
+        fieldFormatters = {MyTrimFormatter.class, MyUpperCaseFormatter.class})
+    private String surname;
+
+    ...
+
+}
+</code></pre>
+</li>
+</ul>
       </section>
     </div>
 
