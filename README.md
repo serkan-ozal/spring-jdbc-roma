@@ -1,6 +1,14 @@
 ## **What is Spring-JDBC-ROMA?**
 
-**Spring-JDBC-ROMA** is a rowmapper extension for **Spring-JDBC module**. There is already a rowmapper named **"org.springframework.jdbc.core.BeanPropertyRowMapper"** for binding resultset attributes to object. But it is reflection based and can cause performance problems as Spring developers said. However **Spring-JDBC-ROMA** is not reflection based and it is byte code generation (with **CGLib** and **Javassist**) based rowmapper. It generates rowmapper on the fly like implementing as manual so it has no performance overhead. It also supports object relations as lazy and eager. There are other lots of interesting features and these features can be customized with developer's extended classes. 
+**Spring-JDBC-ROMA** is a rowmapper extension for **Spring-JDBC module**. 
+There is already a rowmapper named **"org.springframework.jdbc.core.BeanPropertyRowMapper"** for binding 
+resultset attributes to object. But it is reflection based and can cause performance problems as Spring developers said.
+However **Spring-JDBC-ROMA** is not reflection based and it is byte code generation (with **CGLib** and **Javassist**) 
+based rowmapper. It generates rowmapper on the fly like implementing as manual so it has no performance overhead. 
+It also supports object relations as lazy and eager. There are other lots of interesting features and 
+these features can be customized with developer's extended classes. 
+
+
 
 ## **What features does Spring-JDBC-ROMA have?**
 
@@ -13,6 +21,7 @@
 * Writing your custom class (or type) based **RowMapperFieldGeneratorFactory** implementations is supported. 
   
 * Writing field access definitions as compilable Java code in annotation or configuration file (XML file, properties file, ...) is supported.    
+
 
 
 ## **Install**
@@ -56,6 +65,8 @@ And finally, in your **Spring context xml** file add following configuration to 
 <import resource="classpath*:roma-context.xml"/>
 ...
 ~~~~~
+
+
 
 ## **Spring-JDBC-ROMA with a simple example**
   
@@ -122,10 +133,12 @@ RowMapperService rowMapperService;
 RowMapper<User> userRowMapper = rowMapperService.getRowMapper(User.class);
 ~~~~~
 
-In this example, we can get related **Role** entites of **User** entity with **@RowMapperObjectField** annotion automatically. We use **RowMapperObjectField** for accessing related **Role** entites of **User** entity with **id** attribute of User. We have **"lazy=true"** configuration, since **roles** field are initialized while we are accessing it first time. If we don't access it, it will not be set. 
+In this example, we can get related **Role** entites of **User** entity with **"@RowMapperObjectField"** annotion automatically. 
+We use **"@RowMapperObjectField"** annotation for accessing related **Role** entites of **User** entity with **id** attribute of User. 
+We have **"lazy=true"** configuration, since **roles** field are initialized while we are accessing it first time. 
+If we don't access it, it will not be set. 
 
 In addition, we can define **User** entity with compilable pure Java code as follows:
-
  
 ~~~~~ java 
 public class User {
@@ -148,7 +161,6 @@ public class User {
 
 Also, we can user our custom data provider classes these implement **"RowMapperObjectFieldDataProvider"** interface with its **"public Object provideData(T ownerObj)"** method. Here is sample usage:
 
- 
 ~~~~~ java   
 public class User {
 
@@ -168,3 +180,47 @@ public class User {
 
 You can find all demo codes (including these samples above) at [https://github.com/serkan-ozal/spring-jdbc-roma-demo](https://github.com/serkan-ozal/spring-jdbc-roma-demo)
  
+ 
+ 
+## **Roadmap**
+
+* SQL based provider will be supported for getting relations with pure SQL queries by specifying datasource as follows:
+    
+~~~~~ java      
+public class User {
+
+    ...
+
+    @RowMapperObjectField(
+        provideViaSqlProvider = 
+            @RowMapperSqlProvider(
+                sql = 
+                    "SELECT r.* FROM ROLE r WHERE r.ID IN " +
+                    "(" +
+                        "SELECT ur.ROLE_ID FROM user_role ur WHERE ur.USER_ID = ${id}" +
+                    ") ORDER BY r.name",
+                dataSource = "MyDataSource"),
+        lazy = true)
+    private List<Role> roles = new ArrayList<Role>();
+
+    ...
+
+}
+~~~~~
+
+* Field based formatters will be supported for formating field from raw value by impelenting custom formatter classes from **"RowMapperFieldGeneratorFormatter<T>"** interface and overriding **"public T format(T value)"** method. Here is sample usage:
+
+~~~~~ java 
+public class User {
+
+	...
+
+	@RowMapperField(
+		columnName = "surname", 
+		fieldFormatters = {MyTrimFormatter.class, MyUpperCaseFormatter.class})
+    private String surname;
+
+    ...
+
+}
+~~~~~
